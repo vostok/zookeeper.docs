@@ -10,4 +10,6 @@ Once successfully connected, `ConnectionState` will become either `Connected` or
 
 `ConnectionState.Expired` is emitted by server-side when client tries to reconnect to a timed-out session and is not strictly guaranteed to appear every time when session is lost. Given that, a correct way to ensure that ephemeral nodes still exist would be to subscribe onto `ConnectionState` changes and manually probe nodes with `ExistsAsync` every time that `ConnectionState` event is emitted.
 
-`SessionId` property returns an `int` id of an established session when client is in connected state and `0` otherwise. `SessionTimeout` returns negotiated session timeout which may differ from `Timeout` set in `ZooKeeperClientSettings` upon client creation: ZooKeeper cluster may have configured `minSessionTimeout` and `maxSessionTimeout` that limit the possible range of timeout values.
+`SessionId` property returns an `int` id of an established session when client is in connected state and `0` otherwise.&#x20;
+
+`SessionTimeout` returns negotiated session timeout which may differ from `Timeout` set in `ZooKeeperClientSettings` upon client creation: ZooKeeper cluster may have configured `minSessionTimeout` and `maxSessionTimeout` that limit the possible range of timeout values.
