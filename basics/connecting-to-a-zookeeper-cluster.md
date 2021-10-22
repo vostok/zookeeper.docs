@@ -4,7 +4,7 @@ State of the current connection (do not confuse it with session!) is described b
 
 One can subscribe to the changes of `ConnectionState` using `IObservable OnConnectionStateChanged`. When subscribed to, this sequence immediately produces event with current `ConnectionState`. It _may_ produce an `IObserver<T>.OnCompleted` notification when client gets disposed, and _never_ produces `IObserver<T>.OnError` notifications.
 
-Initially, client is created in `Disconnected` state. It will try to establish a working connection upon the first request. To establish a connection immediately, use `ConnectAsync()`/`Connect()` method.
+Initially, client is created in `Disconnected` state. It will try to establish a working connection upon the first request. To establish a connection immediately, use `ConnectAsync()`/`Connect()` extensions.
 
 Once successfully connected, `ConnectionState` will become either `Connected` or `ConnectedReadonly`. Then, if for some reason client loses connection, `ConnectionState` once again becomes `Disconnected`. `ConnectionState` becomes `Dead` only when client instance is disposed and therefore cannot be used anymore. Client is always connected to a single server node. If that node falls out of quorum, client would try to connect to another node unless `CanBeReadOnly` was set to `true`. In the latter case, state will become `ConnectedReadonly`.
 
