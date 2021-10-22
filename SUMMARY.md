@@ -1,11 +1,9 @@
 # Table of contents
 
 * [Home](README.md)
-* [Basics](basics.md)
-* [Observing Events](observing-events.md)
 * [Quickstart](quickstart.md)
-* [Recipes](recipes.md)
-* [operations](operations/README.md)
+* [Basics](basics.md)
+* [Operations](operations/README.md)
   * [Common Concepts](operations/common-concepts.md)
   * [Creating a Node](operations/create.md)
   * [Deleting a Node](operations/delete.md)
@@ -13,3 +11,5 @@
   * [Getting Children of a Node](operations/get-children.md)
   * [Getting of a Node Data](operations/get-data.md)
   * [Setting of a Node Data](operations/set-data.md)
+* [Observing Events](observing-events.md)
+* [Recipes](recipes.md)
