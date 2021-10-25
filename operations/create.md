@@ -9,7 +9,7 @@ A node can be of one of the following types:
 * PersistentSequential
 * EphemeralSequential
 
-```
+```csharp
 var request = new CreateRequest("/node/path", CreateMode.EphemeralSequential)
 {
     Data = new byte[73],
@@ -27,7 +27,7 @@ Persistent nodes exist until deleted by a deliberate request, whilst ephemeral a
 
 When sequential node is being created, a monotonically increasing number is being added to its path. So, the real path of created node differs from one specified in the request and is stored in `NewPath` property of the result:
 
-```
+```csharp
 var createResult = await client.CreateAsync("/parent/seq-child", CreateMode.EphemeralSequential);
 createResult.EnsureSuccess();
 
@@ -49,7 +49,7 @@ Creation of a sequential node is handled by ZooKeeper itself and is guaranteed t
 
 To set an arbitrary bytes as node's data, specify them in request:
 
-```
+```csharp
 var createResult = await client.CreateAsync(new CreateRequest("/path/to/node")
 {
     Data = new byte[1024*1023]
@@ -62,7 +62,7 @@ Maximum allowed data size is 1024\*1023 bytes per node. `ArgumentException` will
 
 By default, client would automatically create the whole subtree if some parent nodes do not exist. To override this behaviour, set `CreateParentsIfNeeded` to `false`:
 
-```
+```csharp
 client.Create(new CreateRequest("/parent-does-not-exist/child", CreateMode.Ephemeral) { CreateParentsIfNeeded = false }).EnsureSuccess();
 // Vostok.ZooKeeper.Client.Abstractions.Model.ZooKeeperException: ZooKeeper operation has failed with status 'NodeNotFound' for path '/parent-does-not-exist/child'.
 ```

@@ -4,7 +4,7 @@
 
 Let's take a look at CreateAsync method as an example. It accepts a request model object as its argument that has two required and some optional arguments:
 
-```
+```csharp
 var createRequest = new CreateRequest("/path/to/node", CreateMode.Ephemeral)
 {
     Data = new byte[42],
@@ -14,7 +14,7 @@ var createRequest = new CreateRequest("/path/to/node", CreateMode.Ephemeral)
 
 Any operation returns a complex result:
 
-```
+```csharp
 CreateResult createResult = await client.CreateAsync(createRequest);
 if (createResult.IsSuccessful)
 {
@@ -33,20 +33,20 @@ else
 
 Any result type is derived from the `ZooKeeperResult` that has a bunch of additional methods that help to analyze an outcome of operation. For example, let's throw an exception if error is a non-retryable network failure:
 
-```
+```csharp
 if (!createResult.IsSuccessful && !createResult.IsRetriableNetworkError())
     createResult.EnsureSuccess();  // Throws `ZooKeeperException` if operation was not successful
 ```
 
 If you do not need additional parameters for your request, a set of concise extension methods would come in handy:
 
-```
+```csharp
 CreateResult createResult = await client.CreateAsync("/path/to/node", CreateMode.Ephemeral, new byte[42]);
 ```
 
 For any asynchronous method there's also a synchronous extension that simply does `.GetAwaiter().GetResult()`:
 
-```
+```csharp
 CreateResult createResult = client.Create(createRequest);
 ```
 

@@ -13,7 +13,7 @@ To do this, one can specify a `NodeWatcher` along with any `GetRequest`: `Exists
 **One should never** call methods of client inside a watcher body as it would inevitably lead to a deadlock
 {% endhint %}
 
-```
+```csharp
 INodeWatcher watcher = new AdHocNodeWatcher((NodeChangedEventType eventType, string changedNodePath) =>
 {
     Console.WriteLine($"Something has changed with node {changedNodePath}...");
@@ -33,7 +33,7 @@ client.Exists(new ExistsRequest("/path/to/watched/node") { Watcher = watcher });
 
 By default, an event will be delivered to a watcher only once, no matter how many times the same watcher instance was passed to client. For example, if we attach the same watcher two times...
 
-```
+```csharp
 client.Exists(new ExistsRequest("/path/to/watched/node") { Watcher = watcher });
 client.Exists(new ExistsRequest("/path/to/watched/node") { Watcher = watcher });
 
@@ -47,7 +47,7 @@ That is because watcher instances are being cached inside a client. Sometimes it
 
 To override caching behaviour, use `IgnoreWatchersCache = true`:
 
-```
+```csharp
 client.Exists(new ExistsRequest("/path/to/watched/node") { Watcher = watcher, IgnoreWatchersCache = true });
 client.Exists(new ExistsRequest("/path/to/watched/node") { Watcher = watcher, IgnoreWatchersCache = true });
 
@@ -62,7 +62,7 @@ The total count of deduplicated watchers is limited by a `WatchersCacheCapacity`
 
 Any watcher is notified only of a single event. So, once it gets called, it may be necessary to attach a new watcher.
 
-```
+```csharp
 INodeWatcher watcher = null;
 INodeWatcher GetWatcher() => watcher ??= new AdHocNodeWatcher((t, p) =>
 {

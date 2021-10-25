@@ -8,7 +8,7 @@ First and foremost, be aware that given the non-realtime nature of .net and prop
 
 To create a `DistributedLock` one must provide an instance of `IZooKeeperClient`, `DistributedLockSettings` and an optional `ILog`.
 
-```
+```csharp
 var settings = new DistributedLockSettings("path/to/lock/node");
 var distributedLock = new DistributedLock(client, settings, log);
 ```
@@ -27,7 +27,7 @@ Acquired lock is represented by a disposable `IDistributedLockToken`. Its only p
 
 Given the uncertain nature of DistributedLockToken, one could ask as to how to correctly use a distributed lock recipe. The correct usage pattern should look like this:
 
-```
+```csharp
 var @lock = new DistributedLock(client, settings, log);
 
 using (var token = await @lock.TryAcquireAsync(TimeSpan.FromSeconds(5)))

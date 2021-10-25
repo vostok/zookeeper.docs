@@ -3,11 +3,13 @@
 To get a list of _immediate_ children of a node, use `GetChildrenAsync`.
 
 Given the nodes
-```
+
+```csharp
 var result = await client.GetChildrenAync(new GetChildrenRequest("/prefix"));
 ```
 
-Given the nodes 
+Given the nodes
+
 ```
 /prefix/a
 /prefix/a/1
@@ -17,6 +19,7 @@ Given the nodes
 ```
 
 The `result.ChildrenNames` would contain
+
 ```
 a
 b

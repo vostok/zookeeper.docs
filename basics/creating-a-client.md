@@ -2,7 +2,7 @@
 
 Client's constructor requires an object of type `ZooKeeperClientSettings`. The only non-optional setting there is a ZooKeeper's cluster topology which can be in form of either a connection string or a list of replicas. Connection string must consist of pairs host:port separated only by `,`.
 
-```
+```csharp
 Vostok.Logging.Abstractions.ILog log = ...;
 var settings = new ZooKeeperClientSettings(connectionString: "10.217.10.42:2181,10.217.20.73:2181")
 {
@@ -19,9 +19,8 @@ Contrarily to a static topology, dynamic one does allow this to happen. Though b
 
 Now let's take a look at additional settings.
 
-|                             |                                                                                                                                                                                                                                                                                           |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `TimeSpan Timeout`          | Specifies connection and session timeout. Note that the real session timeout is decided by ZooKeeper's server and may differ from one set in parameters. [See the section on client-server connection for details. ](connecting-to-a-zookeeper-cluster.md)                                |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `bool CanBeReadOnly`        | If set to `true`, allows client to operate in read-only mode during partitions that isolate the server node it's connected to from established quorum.                                                                                                                                    |
 | `int WatchersCacheCapacity` | Limits unique watchers that can be used with ZooKeeperClient instance. After reaching this limit, same watcher can be triggered multiple times, if it was added multiple times on same node.[ See the section on watchers for details.](../observing-events.md#deduplication-of-watchers) |
 

@@ -17,7 +17,7 @@ Install-Package Vostok.ZooKeeper.LocalEnsemble
 
 * Create ZooKeeper client with the constructor
 
-```
+```csharp
 using Vostok.Logging.Abstractions;
 using Vostok.ZooKeeper.Abstractions;
 using Vostok.ZooKeeper.Client;
