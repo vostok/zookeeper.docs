@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Home](README.md)
+* [Overview](README.md)
 * [Quickstart](quickstart.md)
 * [Basics](basics/README.md)
   * [A Short Introduction to ZooKeeper](basics/a-short-introduction-to-zookeeper.md)
