@@ -3,7 +3,6 @@
 * [Overview](README.md)
 * [Quickstart](quickstart.md)
 * [Basics](basics/README.md)
-  * [A Short Introduction to ZooKeeper](basics/a-short-introduction-to-zookeeper.md)
   * [Creating a Client](basics/creating-a-client.md)
   * [Connecting to a ZooKeeper Cluster](basics/connecting-to-a-zookeeper-cluster.md)
   * [Using Client](basics/using-client.md)
