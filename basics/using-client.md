@@ -12,6 +12,8 @@ var createRequest = new CreateRequest("/path/to/node", CreateMode.Ephemeral)
 };
 ```
 
+#### Inspecting a Result
+
 Any operation returns a complex result:
 
 ```csharp
@@ -37,6 +39,8 @@ Any result type is derived from the `ZooKeeperResult` that has a bunch of additi
 if (!createResult.IsSuccessful && !createResult.IsRetriableNetworkError())
     createResult.EnsureSuccess();  // Throws `ZooKeeperException` if operation was not successful
 ```
+
+#### Extension Methods
 
 If you do not need additional parameters for your request, a set of concise extension methods would come in handy:
 

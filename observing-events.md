@@ -7,7 +7,11 @@ ZooKeeper allows you to subscribe to a certain events happening to a node:
 * Changes of node data
 * Adding and deleting of node's children
 
-To do this, one can specify a `NodeWatcher` along with any `GetRequest`: `ExistsRequest`, `GetChildrenRequest` and `GetDataRequest`. A watcher will be attached to a given node only if request results in success. Watcher will be triggered when a change occurs to this node _only once_. While there is no guarantee that notification will be delivered to the client regardless of the state of connection, delivered events can never be out of order.
+To do this, one can specify a `NodeWatcher` along with any `GetRequest`: `ExistsRequest`, `GetChildrenRequest` and `GetDataRequest`.&#x20;
+
+A watcher will be attached to a given node only if request results in success. Watcher will be triggered when a change occurs to this node _only once_.&#x20;
+
+While there is no guarantee that notification will be delivered to the client regardless of the state of connection, delivered events can never be out of order.
 
 {% hint style="info" %}
 **One should never** call methods of client inside a watcher body as it would inevitably lead to a deadlock

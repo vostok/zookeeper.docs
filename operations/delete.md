@@ -12,4 +12,6 @@ else if (result.Status == ZooKeeperStatus.VersionsMismatch)
     Console.WriteLine("Node had an unexpected version and therefore was not deleted.");
 ```
 
+#### Atomicity of Children Deletion
+
 Note that deletion of a node that has children with its children is not atomic. Nodes will be deleted recursively, starting with leaves, until it is possible to delete an original node. This means that an inconsistent state may be read before deletion is completed or an operation may be left halfway done in case of a connection-related issues.

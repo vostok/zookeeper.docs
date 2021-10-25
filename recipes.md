@@ -15,6 +15,8 @@ var distributedLock = new DistributedLock(client, settings, log);
 
 In this model, a single node represents a single locked resource.
 
+#### Acquiring a Lock
+
 `DistributedLock` provides two similar methods: `TryAcquireAsync` and `AcquireAsync`.
 
 `TryAcquireAsync(TimeSpan timeout, CancellationToken cancellationToken = default)` would try to acquire lock within given timeout and return `null` if it fails to do so.
@@ -23,7 +25,11 @@ In this model, a single node represents a single locked resource.
 
 Both would throw `OperationCanceledException` if provided `CancellationToken` is canceled before lock is acquired.
 
+#### Checking and Releasing a Lock: IDistributedLockToken
+
 Acquired lock is represented by a disposable `IDistributedLockToken`. Its only property `IsAcquired` indicates whether the lock is still being held; its value can change at any time. `Dispose` releases the lock, although it is not guaranteed that lock will be released immediately. The exact moment of release depends upon the state of connection to ZooKeeper cluster.
+
+#### Correct Usage of a Lock
 
 Given the uncertain nature of DistributedLockToken, one could ask as to how to correctly use a distributed lock recipe. The correct usage pattern should look like this:
 
@@ -46,7 +52,7 @@ using (var token = await @lock.TryAcquireAsync(TimeSpan.FromSeconds(5)))
 }
 ```
 
-Here we use the fact that taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired. After checking `IsAcquired` we should normally have no less than a `client.SessionTimeout` time to perform our actions before the next check is needed, though it is better to have a safety margin. `DoPartOfWorkSync` should complete its work not much later than cancellation is requested. It is also important to start the timer before checking the state of the lock.
+Here we use the fact that taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired.&#x20;
 
 After we've checked that lock is still being held, we should normally have no less than a `client.SessionTimeout` time to perform our actions before the next check is needed, though it is better to have a safety margin. `DoPartOfWorkSync` should complete its work not much later than cancellation is requested. It is also important to start the timer before checking the state of the lock.
 
