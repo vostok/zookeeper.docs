@@ -16,4 +16,5 @@
   * [Getting of a Node Data](operations/get-data.md)
   * [Setting of a Node Data](operations/set-data.md)
 * [Observing Node Events](observing-events.md)
-* [Recipes](recipes.md)
+* [Recipes](recipes/README.md)
+  * [Distributed Lock](recipes/distributed-lock.md)

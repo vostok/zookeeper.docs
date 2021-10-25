@@ -1,8 +1,4 @@
-# Recipes
-
-A number of complex scenarios such as distributed locks, barriers, queues, leadership providers can be implemented using simple ZooKeeper building blocks. These algorithms are explained in detail in the official ZK [documentation](https://zookeeper.apache.org/doc/current/recipes.html). Currently, only distributed locks are implemented in `Vostok.ZooKeeper.Recipes`.
-
-## Distributed Lock
+# Distributed Lock
 
 First and foremost, be aware that given the non-realtime nature of .net and properties of distributed lock, such lock can not be considered as 'firm' lock and can only be used to perform optimizations when no strict guarantees are needed.
 
