@@ -13,7 +13,9 @@ var settings = new ZooKeeperClientSettings(connectionString: "10.217.10.42:2181,
 using var client = new ZooKeeperClient(settings, log);
 ```
 
+{% hint style="warning" %}
 Note that client implements `IDisposable` interface and therefore should be disposed once not needed anymore to correctly release all the resources.
+{% endhint %}
 
 #### Providing Cluster Topology
 
