@@ -54,4 +54,4 @@ For any asynchronous method there's also a synchronous extension that simply doe
 CreateResult createResult = client.Create(createRequest);
 ```
 
-For detailed information on other methods please refer to a corresponding section.
+For detailed information on other methods please refer to a corresponding [section](../operations/).
