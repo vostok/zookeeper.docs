@@ -23,7 +23,7 @@ Both would throw `OperationCanceledException` if provided `CancellationToken` is
 
 #### Checking and Releasing a Lock: IDistributedLockToken
 
-Acquired lock is represented by a disposable `IDistributedLockToken`. Its only property `IsAcquired` indicates whether the lock is still being held; its value can change at any time. `Dispose` releases the lock, although it is not guaranteed that lock will be released immediately. The exact moment of release depends upon the state of connection to ZooKeeper cluster.
+Acquired lock is represented by a disposable `IDistributedLockToken`. Its properties `IsAcquired` and `CancellationToken` indicate whether the lock is still being held; its values can change at any time. `Dispose` releases the lock and triggers the `CancellationToken`, although it is not guaranteed that lock will be released immediately. The exact moment of release depends upon the state of connection to ZooKeeper cluster.
 
 #### Correct Usage of a Lock
 
@@ -37,19 +37,17 @@ using (var token = await @lock.TryAcquireAsync(TimeSpan.FromSeconds(5)))
     if (token == null) return;
 
     while (true)
-    {
-        using var cts = new CancellationTokenSource(client.SessionTimeout / 2);
-        
+    {       
         if (!token.IsAcquired) break;
 
-        if (DoPartOfWorkSync(cts.Token))
+        if (DoPartOfWorkSync(token.CancellationToken))
             return;
     }
 }
 ```
 
-Here we use the fact that taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired.&#x20;
+Taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired.&#x20;
 
-After we've checked that lock is still being held, we should normally have no less than a `client.SessionTimeout` time to perform our actions before the next check is needed, though it is better to have a safety margin. `DoPartOfWorkSync` should complete its work not much later than cancellation is requested. It is also important to start the timer before checking the state of the lock.
+After we've checked that lock is still being held, we should normally have no less than a `client.SessionTimeout` time to perform our actions before the next check is needed. `DoPartOfWorkSync` should complete its work not much later than cancellation is requested.
 
-However, if client loses connection and shortly reestablishes it, client should try to delete created node. Hence there is no guarantee that lock will persist at least for `client.SessionTimeout.`
+However, if client loses connection and shortly reestablishes it, client should try to delete created node. Hence there is no guarantee that lock will persist for at least `client.SessionTimeout.`
