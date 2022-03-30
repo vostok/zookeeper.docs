@@ -46,8 +46,8 @@ using (var token = await @lock.TryAcquireAsync(TimeSpan.FromSeconds(5)))
 }
 ```
 
-Taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired.&#x20;
+Taking of the lock creates a sequential ephemeral node in ZooKeeper. Such node will persist until it is deleted or client session is expired.
 
 After we've checked that lock is still being held, we should normally have no less than a `client.SessionTimeout` time to perform our actions before the next check is needed. `DoPartOfWorkSync` should complete its work not much later than cancellation is requested.
 
-However, if client loses connection and shortly reestablishes it, client should try to delete created node. Hence there is no guarantee that lock will persist for at least `client.SessionTimeout.`
+However, if client loses connection and shortly reestablishes it, client should try to delete created node. Hence there is no guarantee that lock will persist for at least `client.SessionTimeout`.
